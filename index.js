@@ -3,6 +3,9 @@ const app = express();
 const { PORT } = require('./config');
 const expressMiddleware = require('./middleware/express.js');
 const passportMiddleware = require('./middleware/passport.js');
+const authRouter = require('./routes/authRouter.js');
+const userRouter = require('./routes/userRouter.js');
+
 
 async function startServer() {
 
@@ -16,8 +19,9 @@ async function startServer() {
     // Load Passport Middleware
     const passport = await passportMiddleware(expressApp);
 
-    // Load Routes
-    
+    // Load Routers
+    authRouter(app, passport);
+    userRouter(app);
 
     // Error Handler
     app.use((error, request, response, next) => {

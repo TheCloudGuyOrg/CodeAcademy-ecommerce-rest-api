@@ -38,7 +38,7 @@ module.exports = class UserModel {
 
             // Generate SQL Statement - using helper for dynamic parameter injection
             const condition = pgp.as.format('WHERE id = ${id} RETURNING *', { id });
-            const statement = pgp.helpers.update(params) + condition;
+            const statement = pgp.helpers.update(params, null, 'users') + condition;
 
             // Execute SQL Statement
             const result = await db.query(statement);
@@ -63,7 +63,7 @@ module.exports = class UserModel {
     try {
 
         // Generate SQL Statement - Find by Email
-        const statement = `SELECRT * FROM users WHERE email = $1`;
+        const statement = `SELECT * FROM users WHERE email = $1`;
         const values = [email];
 
         // Execute SQL Statement
