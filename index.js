@@ -14,7 +14,10 @@ async function startServer() {
     const expressApp = await expressMiddleware(app);
 
     // Load Passport Middleware
-    //const passport = await passportMiddleware(expessApp);
+    const passport = await passportMiddleware(expressApp);
+
+    // Load Routes
+    
 
     // Error Handler
     app.use((error, request, response, next) => {

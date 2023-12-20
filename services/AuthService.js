@@ -1,0 +1,49 @@
+const createError = require('http-errors');
+const UserModel = require('../models/user.js');
+const UserModelInstance = new UserModel();
+
+module.exports = class AuthService {
+    async register(data) {
+        const {email } = data;
+
+        try {
+            // Check if user already exists
+            const user = await UserModelInstance.findOneByEmail(email);
+
+            // If user already exists, reject
+            if(user) {
+                throw createError(409, 'Email already in use');
+            }
+            
+            // User doesn't exist, create new user record
+            return await UserModelInstance.create(data);
+
+        } catch(error) {
+            throw createError(500, error);
+        }
+    };
+
+    async login(data) {
+        const { email, password } = data;
+
+        try {
+            // Check if user exists
+            const user = await UserModelInstance.findOneByEmail(email);
+
+            // If no user found, reject
+            if (!user) {
+                throw createError(401, 'Incorrect username or password');
+            }
+
+            // Check for matching passwords
+            if (user.password !== password) {
+                throw createError(401, 'Incorrect username or password'); 
+            }
+
+            return user;
+
+        } catch(error) {
+            throw createError(500, error);
+        }
+    };
+};
