@@ -6,6 +6,7 @@ const passportMiddleware = require('./middleware/passport.js');
 const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const productRouter = require('./routes/productRouter.js');
+const orderRouter = require('./routes/orderRouter.js');
 
 async function startServer() {
 
@@ -23,6 +24,7 @@ async function startServer() {
     authRouter(app, passport);
     userRouter(app);
     productRouter(app);
+    orderRouter(app);
 
     // Error Handler
     app.use((error, request, response, next) => {
