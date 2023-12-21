@@ -7,6 +7,7 @@ const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const productRouter = require('./routes/productRouter.js');
 const orderRouter = require('./routes/orderRouter.js');
+const cartRouter = require('./routes/cartRouter.js');
 
 async function startServer() {
 
@@ -25,6 +26,7 @@ async function startServer() {
     userRouter(app);
     productRouter(app);
     orderRouter(app);
+    cartRouter(app);
 
     // Error Handler
     app.use((error, request, response, next) => {
