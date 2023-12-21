@@ -55,6 +55,28 @@ module.exports = class UserModel {
     }
 
     /**
+   * List users
+   * @param  {Object} options [Query options]
+   * @return {Array}          [Array of users]
+   */
+    async find(options ={}) {
+        try {
+            const statement = `SELECT * FROM users`;
+            const values = [];
+            const result = await db.query(statement, values);
+
+            if (result.rows?.length) {
+                return result.rows;
+            }
+
+            return [];
+
+        } catch(error) {
+            throw error;
+        }
+    };
+
+    /**
    * Finds a user record by email
    * @param  {String}      email [Email address]
    * @return {Object|null}       [User record]

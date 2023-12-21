@@ -7,6 +7,16 @@ module.exports = (app) => {
 
     app.use('/users', router);
 
+    router.get('/', async (request, response, next) => {
+        try {
+            const queryParams = request.query;
+            const jsonResponse = await UserServiceInstance.list(queryParams);
+            response.status(200).send(jsonResponse);
+        } catch(error) {
+            next(error);
+        }
+    });
+
     router.get('/:userId', async (request, response, next) => {
 
         try {

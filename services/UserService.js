@@ -3,6 +3,18 @@ const UserModel = require('../models/userModel.js');
 const UserModelInstance = new UserModel();
 
 module.exports = class UserService {
+    async list(options) {
+        try {
+            // Load Users
+            const users = await UserModelInstance.find(options);
+            return users;
+        } catch (error) {
+            throw error;
+        }
+    }
+    
+    
+    
     async get(data) {
         
         const { id } = data;
