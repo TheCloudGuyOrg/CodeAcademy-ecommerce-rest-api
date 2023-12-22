@@ -17,7 +17,6 @@ module.exports = class CartItemModel {
             const statement = `INSERT INTO cartitems (cartid,productid,qty) VALUES($1, $2, $3)RETURNING *`;
             const values = [cartId, productId, qty];
 
-
             // Execute SQL Statement
             const result = await db.query(statement, values);
  
@@ -40,6 +39,7 @@ module.exports = class CartItemModel {
     */
     static async find(cartId) {
         try{
+
             // Generate SQL Statement
             const statement = `SELECT ci.qty, ci.id AS "cartIdemId", p.* FROM cartItems ci INNER JOIN products p ON p.id = ci.productId WHERE cartId = $1`;
             const values = [cartId];

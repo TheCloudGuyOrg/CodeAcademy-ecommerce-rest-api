@@ -1,6 +1,6 @@
 const createError = require('http-errors');
 const CartModel = require('../models/cartModel.js');
-const OrderModel = require('../models/orderItemsModel.js');
+const OrderModel = require('../models/orderModel.js');
 const CartItemModel = require('../models/cartItemModel.js');
 const CartModelInstance = new CartModel();
 
@@ -67,8 +67,28 @@ module.exports = class CartService {
         }
     };
 
-    async checkout() {
+    async checkout(userId) {
         try {
+            // Load user cart based on ID
+            const cart = await CartModelInstance.findOneByUser(userId);
+
+            // Load Cart Items
+            const cartItems = await CartItemModel.find(cart.id);
+
+            // Generate total Price from cart items
+            const total = cartItems.reduce((total, item) => {
+                return total += Number(item.price);
+            }, 0);
+
+            // Generate intial order
+            const Order = new OrderModel({ total, userId });
+            Order.addItems(cartItems);
+            await Order.create();
+
+            // Update to Complete
+            const order = Order.update({ status: 'COMPLETE' });
+
+            return order;
 
         } catch(error) {
             throw error;

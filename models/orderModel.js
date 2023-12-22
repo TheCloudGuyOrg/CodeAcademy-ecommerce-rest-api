@@ -4,11 +4,83 @@ const moment = require('moment');
 const OrderItem = require('./orderItemsModel.js');
 
 module.exports = class OrderModel {
+
+    constructor(data = {}) {
+        this.created = data.created || moment.utc().toISOString();
+        this.items = data.items || [];
+        this.modified = moment.utc().toISOString();
+        this.status = data.status || 'PENDING';
+        this.total = data.total || 0;
+        this.userId = data.userId || null;
+    };
+
+    addItems(items) {
+        this.items = items.map(item => new OrderItem(item));
+    };
+
     /**
-   * Loads orders for a user
-   * @param  {number} userId [User ID]
-   * @return {Array}         [Order records]
-   */
+    * Creates a new order for a user
+    * @return {Object|null}        [Created order record]
+    */
+    async create() {
+        try {
+            const { items, ...order } = this;
+
+            // Generate SQL statement - using helper for dynamic parameter injection
+            const statement = `INSERT INTO "orders"("created","modified","status","total",userId) VALUES($1, $2, $3, $4, $5) RETURNING *`;
+            const values = [this.created, this.modified, this.status, this.total, this.userId]
+
+            // Execute SQL Statement
+            const result = await db.query(statement, values);
+
+            if (result.rows?.length) {
+
+                // Add new information generated in the database (ie: id) to the Order instance properties
+                Object.assign(this, result.rows[0]);
+
+                return result.rows[0];
+            }
+
+            return null;
+
+
+        } catch(error) {
+            throw new Error(error);
+        }
+    };
+
+    /**
+    * Updates an order for a user
+    * @param  {Object}      id   [Order ID]
+    * @param  {Object}      data [Order data to update]
+    * @return {Object|null}      [Updated order record]
+    */
+   async update(data) {
+        try{
+
+            //Generate SQL statement 
+            const condition = pgp.as.format('WHERE id = ${id} RETURNING *', { id: this.id });
+            const statement = pgp.helpers.update(data, null, 'orders') + condition;
+
+             // Execute SQL Statement
+             const result = await db.query(statement);
+
+             if (result.rows?.length) {
+                 return result.rows[0];
+             }
+ 
+             return null;
+
+        }catch(error) {
+            throw new Error(error);
+        }
+   }
+
+    /**
+    * Loads orders for a user
+    * @param  {number} userId [User ID]
+    * @return {Array}         [Order records]
+    */
     static async findByUser(userId) {
         try {
             // Generate SQL Statement
@@ -31,10 +103,10 @@ module.exports = class OrderModel {
 
 
     /**
-   * Retrieve order by ID
-   * @param  {number}      orderId [Order ID]
-   * @return {Object|null}         [Order record]
-   */
+    * Retrieve order by ID
+    * @param  {number}      orderId [Order ID]
+    * @return {Object|null}         [Order record]
+    */
     static async findById(orderId) {
         try {
             // Generate SQL Statement
@@ -54,4 +126,7 @@ module.exports = class OrderModel {
             throw new Error(error);
         }
     };
+
+
+
 };

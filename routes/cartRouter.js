@@ -60,7 +60,9 @@ module.exports = (app) => {
 
     router.post('/items/checkout', async (request, response, next) => {
         try {
-
+            const { id } = request.user;
+            const jsonResponse = await CartServiceInstance.checkout(id);
+            response.status(200).send(jsonResponse)
         } catch(error) {
             next(error)
         }
