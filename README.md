@@ -1,4 +1,4 @@
-# codecademy-ecommerce-rest-api
+# codecademy-ecommerce-app
 Node/Express REST API to provide typical functionality found in an ecommerce website.  Users can create accounts, view products, add products to a cart, and place/view orders.
 
 ## Running the app
