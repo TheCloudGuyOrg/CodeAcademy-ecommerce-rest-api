@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const { PORT } = require('./config');
-const expressMiddleware = require('./middleware/express.js');
-const passportMiddleware = require('./middleware/passport.js');
+const { PORT } = require('./config.js');
+const expressMiddleware = require('./controllers/express.js');
+const passportMiddleware = require('./controllers/passport.js');
 const authRouter = require('./routes/authRouter.js');
 const userRouter = require('./routes/userRouter.js');
 const productRouter = require('./routes/productRouter.js');

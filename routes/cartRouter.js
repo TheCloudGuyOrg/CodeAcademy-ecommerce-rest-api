@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const CartService = require('../services/CartService.js');
+const CartService = require('../controllers/CartService.js');
 const CartServiceInstance = new CartService();
 
 module.exports = (app) => {
@@ -41,6 +41,7 @@ module.exports = (app) => {
         try {
             const { cartItemId } = request.params;
             const data = request.body;
+
             const jsonResponse = await CartServiceInstance.updateItem(cartItemId, data);
             response.status(200).send(jsonResponse);
         } catch(error) {

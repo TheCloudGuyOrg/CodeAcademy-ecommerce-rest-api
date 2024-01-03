@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const UserService = require('../services/UserService.js');
+const UserService = require('../controllers/UserService.js');
 const UserServiceInstance = new UserService();
 
 module.exports = (app) => {

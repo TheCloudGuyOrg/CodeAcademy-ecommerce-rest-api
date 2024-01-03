@@ -1,4 +1,4 @@
-const db = require('../db/index.js');
+const db = require('./database.js');
 const pgp = require('pg-promise')({ capSQL: true });
 
 module.exports = class CartItemModel {
@@ -91,7 +91,6 @@ module.exports = class CartItemModel {
      */
     static async update(id, data) {
         try{
-            
             const qty = Number(data.qty)
 
             // Generate SQL Statement using helper for dynamic parameter injection

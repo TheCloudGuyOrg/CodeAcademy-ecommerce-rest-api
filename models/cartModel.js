@@ -1,5 +1,4 @@
-const db = require('../db/index.js');
-const pgp = require('pg-promise')({ capSQL: true });
+const db = require('./database.js');
 const moment = require('moment');
 
 module.exports = class CartModel {
@@ -53,6 +52,7 @@ module.exports = class CartModel {
     
             // Execute SQL Statement
             const result = await db.query(statement, values);
+
     
     
             if (result.rows?.length) {
