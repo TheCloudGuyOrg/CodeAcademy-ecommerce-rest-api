@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Form, Formik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import Divider from '@material-ui/core/Divider';
 import * as Yup from 'yup';
 import Button from '../../components/Button/Button';
 import TextField from '../../components/TextField/TextField';
