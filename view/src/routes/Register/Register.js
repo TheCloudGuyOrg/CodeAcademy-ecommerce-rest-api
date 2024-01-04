@@ -9,7 +9,7 @@ import { registerUser } from '../../store/auth/Auth.actions';
 import '../Login/Login.css';
 
 function Register() {
-    const history = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { error } = useSelector(state => state.auth);
     const [isLoading, setIsLoading] = useState(false);
@@ -20,7 +20,7 @@ function Register() {
             setIsLoading(true);
             await dispatch(registerUser(credentials));
             setIsLoading(false);
-            history.push('/');
+            navigate('/');
         } catch(error) {
             setIsLoading(false);
         }
@@ -45,7 +45,7 @@ function Register() {
                 <div className="formWrapper">
                     <Formik
                         initialValues={{email: '', password: ''}}
-                        validateSchema={registrationSchema}
+                        validationSchema={registrationSchema}
                         validateOnBlur
                         onSubmit={async (data) => {
                             const { confirmPassword, ...credentials } = data;

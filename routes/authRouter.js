@@ -8,7 +8,6 @@ module.exports = (app, passport) => {
 
     // Registration Endpoint
     router.post('/register', async (request, response, next) => {
-
         try {
             const data = request.body;
             const jsonResponse = await AuthServiceInstance.register(data);
