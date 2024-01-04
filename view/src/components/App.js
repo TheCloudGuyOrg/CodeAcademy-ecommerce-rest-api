@@ -1,38 +1,33 @@
-import React from 'react';
-import {
-  BrowserRouter as Router,
-  Navigate,
-  Route,
-  Routes
-} from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-
 import Header from './Header/Header';
+import { useDispatch } from 'react-redux';
 import Home from '../routes/Home/Home';
+import Register from '../routes/Register/Register';
+import { checkLoginStatus } from '../store/auth/Auth.actions';
 
 function App() {
+  const dispatch = useDispatch();
+
+  // Load user cart on entry to app
+  useEffect(() => {
+    async function isLoggedIn() {
+      await dispatch(checkLoginStatus());
+    }
+
+    isLoggedIn();
+  }, [dispatch]);
+
   return (
     <div style={{flex: 1}}>
-      <Router>
+      <BrowserRouter>
         <Header />
         <Routes>
-          {/* Public Routes */}
-          <Route exact path='/' component={Home} />
-          {/* <Route path="/login" component={Login}/>
-          <Route path="/products/:productId" component={ProductDetails}/>
-          <Route path="/register" component={Register}/>
-          <Route path="/orders" component={Orders}/> */}
-
-          {/* Private Routes */}
-          {/* <PrivateRoute exact path='/account' Component={Account} />
-          <PrivateRoute exact path='/cart' Component={Cart} />
-          <PrivateRoute exact path='/checkout' Component={Checkout} />
-          <PrivateRoute exact path='/orders' Component={Orders} />
-          <PrivateRoute exact path='/orders/:orderId' Component={OrderDetails} /> */}
-
-          {/* <Navigate from='*' to='/'/> */}
+          <Route path='/' element={<Home/>} />
+          <Route path="register" element={<Register/>} />
         </Routes>
-      </Router>
+      </BrowserRouter>
     </div>
   );
 }

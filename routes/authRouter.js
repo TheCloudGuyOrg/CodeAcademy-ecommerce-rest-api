@@ -4,7 +4,7 @@ const AuthService = require('../controllers/AuthService');
 const AuthServiceInstance = new AuthService();
 
 module.exports = (app, passport) => {
-    app.use('/', router);
+    app.use('/api/auth', router);
 
     // Registration Endpoint
     router.post('/register', async (request, response, next) => {

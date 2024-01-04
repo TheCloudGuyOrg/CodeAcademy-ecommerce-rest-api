@@ -29,6 +29,9 @@ const Header = () => {
     
     const classes = useStyles();
 
+    const { isAuthenticated } = useSelector(state => state.auth);
+    //const { items } = useSelector(state => state.cart);
+
     return (
         <AppBar position="static">
           <Toolbar className={classes.header}>
@@ -36,13 +39,16 @@ const Header = () => {
               Codecademy Shop
             </Typography>
             <div>
-              { 
+              { !isAuthenticated &&
                 <Button color="inherit" component={Link} to={`/login`}>Login</Button>
               }
-              { 
+              { isAuthenticated &&
                 <Button color="inherit" component={Link} to={`/orders`}>My Orders</Button>
               }
               <IconButton aria-label="access shopping cart" color="inherit" component={Link} to="/cart">
+                {/* <Badge badgeContent={items?.length || 0} color="secondary">
+                    <ShoppingCartIcon />
+                </Badge> */}
               </IconButton>
             </div>
           </Toolbar>

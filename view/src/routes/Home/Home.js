@@ -1,28 +1,11 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
 
 function Home() {
-    const dispatch = useDispatch();
-    const products = useSelector(state => state.products);
-
-    useEffect(() => {
-        async function load() {
-          await dispatch();
-        }
-        load();
-      }, [dispatch]);
-
-      return (
-        <section className="grid">
-          { products && Object.keys(products).length > 0 &&
-            Object.keys(products).map((key) => {
-              const product = products[key];
-            })
-          }
-        </section>
-      );
-
-
+  return (
+    <div>
+      <h1>Hello World</h1>
+    </div>
+  );
 };
 
 export default Home;
