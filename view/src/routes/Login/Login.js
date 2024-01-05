@@ -5,20 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as Yup from 'yup';
 import Button from '../../components/Button/Button';
 import TextField from '../../components/TextField/TextField';
-import { registerUser } from '../../store/auth/Auth.actions';
-import '../Login/Login.css';
+import { loginUser } from '../../store/auth/Auth.actions';
+import './Login.css';
 
-const Register = () => {
+const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { error } = useSelector(state => state.auth);
     const [isLoading, setIsLoading] = useState(false);
 
-    // Registration Handler
-    const handleRegister = async (credentials) => {
+    // Login handler
+    const handleLogin = async (credentials) => {
         try {
             setIsLoading(true);
-            await dispatch(registerUser(credentials));
+            await dispatch(loginUser(credentials));
             setIsLoading(false);
             navigate('/');
         } catch(error) {
@@ -26,37 +26,33 @@ const Register = () => {
         }
     };
 
-    // Validation schema for registration form
-    const registrationSchema = Yup.object().shape({
+    const loginSchema = Yup.object().shape({
         email: Yup.string()
-            .email("Ivalid email address")
+            .email("Invalid email address")
             .required("Email address is required"),
         
         password: Yup.string()
-            .required("Password is required"),
-
-        confirmPassword: Yup.string()
-            .oneOf([Yup.ref('password'), null], "Passwords must match")
+            .required("Password is required")
     });
 
-    return (
+    return(
         <div className="app">
             <div className="formComp">
                 <div className="formWrapper">
-                    <Formik
+                    <Formik 
                         initialValues={{email: '', password: ''}}
-                        validationSchema={registrationSchema}
+                        validationSchema={loginSchema}
                         validateOnBlur
                         onSubmit={async (data) => {
-                            const { confirmPassword, ...credentials } = data;
-                            await handleRegister(credentials);
+                            const { email, password }  = data;
+                            await handleLogin({username: email, password});
                         }}
                     >
                         <Form className="baseForm">
                             <header className="baseFormHeader">
-                                <h1 className="baseFormHeading">Register</h1>
+                                <h1 className="baseFormHeading">Log in</h1>
                             </header>
-                            <TextField 
+                            <TextField
                                 label="Email"
                                 name="email"
                                 id="email-input"
@@ -67,23 +63,13 @@ const Register = () => {
                                 id="password-input"
                                 type="password"
                             />
-                            <TextField 
-                                label="Confirm Password"
-                                name="confirmPassword"
-                                id="confirm-password-input"
-                                type="password"
-                            />
-                            {
-                                error && <div>{error}</div>
-                            }
+                            { error && <div>{error}</div>}
                             <Button 
-                                varient="contained"
+                                variant="contained"
                                 color="primary"
                                 type="submit"
                                 isLoading={isLoading}
-                            >
-                                Submit
-                            </Button>
+                            >Submit</Button>
                         </Form>
                     </Formik>
                 </div>
@@ -92,4 +78,4 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;
