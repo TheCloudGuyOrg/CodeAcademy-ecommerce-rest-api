@@ -5,6 +5,7 @@ import Header from './Header/Header';
 import Home from '../routes/Home/Home';
 import Register from '../routes/Register/Register';
 import Login from '../routes/Login/Login';
+import ProductDetails from '../routes/ProductDetails/ProductDetails';
 import Account from '../routes/Account/Account';
 import { checkLoginStatus } from '../store/auth/Auth.actions';
 import './App.css';
@@ -27,9 +28,10 @@ function App() {
           <Header />
               <Routes>
                   {/* Public Routes */}
-                  <Route path='/' element={<Home/>} />
+                  <Route exact path='/' element={<Home/>} />
                   <Route path='register' element={<Register/>} />
                   <Route path='/login' element={<Login/>}/>
+                  <Route path="/products/:productId" element={<ProductDetails/>}/>
 
                   {/* Private Routes */}
                   <Route exact path='/account' element={<Account/>} />

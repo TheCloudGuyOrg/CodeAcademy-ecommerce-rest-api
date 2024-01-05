@@ -8,7 +8,7 @@ function ProductCard(props) {
 
     return(
         <div className="grid-item">
-            <img className="product-card-img" src="https://elcopcbonline.com/photos/product/4/176/4.jpg" alt=""></img>
+            <img className="product-card-img" src="https://i5.walmartimages.com/asr/37a49c0c-6f69-4958-b30a-e7ea8b21338e_2.e8072fad5bf0ffa2e3af108b059d8b0b.jpeg" alt=""></img>
             <div className="product-card-info-container">
                 <div className="product-card-info">
                     <p>{data.name}</p>

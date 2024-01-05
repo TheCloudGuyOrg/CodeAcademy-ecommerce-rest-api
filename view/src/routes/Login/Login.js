@@ -20,7 +20,7 @@ const Login = () => {
             setIsLoading(true);
             await dispatch(loginUser(credentials));
             setIsLoading(false);
-            navigate('/account');
+            navigate('/');
         } catch(error) {
             setIsLoading(false);
         }
