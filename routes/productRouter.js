@@ -4,7 +4,7 @@ const ProductService = require('../controllers/ProductService.js');
 const ProductModelInstance = new ProductService();
 
 module.exports = (app) => {
-    app.use('/products', router);
+    app.use('/api/products', router);
 
     router.get('/', async (request, response, next) => {
         try {
