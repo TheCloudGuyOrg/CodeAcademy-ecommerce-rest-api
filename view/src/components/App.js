@@ -8,7 +8,7 @@ import Login from '../routes/Login/Login';
 import ProductDetails from '../routes/ProductDetails/ProductDetails';
 //import Orders from '../routes/Orders/Orders';
 //import Account from '../routes/Account/Account';
-//import Cart from '../routes/Cart/Cart';
+import Cart from '../routes/Cart/Cart';
 //import Checkout from '../routes/Checkout/Checkout';
 //import OrderDetails from '../routes/OrderDetails/OrderDetails';
 import { checkLoginStatus } from '../store/auth/Auth.actions';
@@ -40,7 +40,7 @@ function App() {
 
                   {/* Private Routes */}
                   {/* <Route exact path='/account' element={<Account/>} /> */}
-                  {/* <Route exact path='/cart' element={<Cart/>} /> */}
+                  <Route exact path='/cart' element={<Cart/>} />
                   {/* <Route exact path='/checkout' element={<Checkout/>} /> */}
                   {/* <Route path="/orders/:orderId" element={<OrderDetails/>}/> */}
 
