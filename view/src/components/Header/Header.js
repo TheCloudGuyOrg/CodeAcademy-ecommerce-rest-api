@@ -6,7 +6,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
+//import IconButton from '@material-ui/core/IconButton';
 //import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -45,11 +45,11 @@ const Header = () => {
               { isAuthenticated &&
                 <Button color="inherit" component={Link} to={`/orders`}>My Orders</Button>
               }
-              <IconButton aria-label="access shopping cart" color="inherit" component={Link} to="/cart">
-                {/* <Badge badgeContent={items?.length || 0} color="secondary">
+              {/* <IconButton aria-label="access shopping cart" color="inherit" component={Link} to="/cart">
+                <Badge badgeContent={items?.length || 0} color="secondary">
                     <ShoppingCartIcon />
-                </Badge> */}
-              </IconButton>
+                </Badge>
+              </IconButton> */}
             </div>
           </Toolbar>
         </AppBar>
