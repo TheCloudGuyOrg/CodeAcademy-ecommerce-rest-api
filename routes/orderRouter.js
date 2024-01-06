@@ -4,7 +4,7 @@ const OrderService = require('../controllers/OrderService.js');
 const OrderServiceInstance = new OrderService();
 
 module.exports = (app) => {
-    app.use('/orders', router);
+    app.use('/api/orders', router);
 
     router.get('/', async (request, response, next) => {
         try {

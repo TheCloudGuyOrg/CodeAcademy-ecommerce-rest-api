@@ -8,6 +8,7 @@ import { addItem } from '../../store/cart/Cart.actions';
 import { loadProduct } from '../../store/products/Products.actions';
 import '../Login/Login';
 
+
 function ProductDetails() {
     const { productId } = useParams();
     const [ quantity, setQuantity ] = useState(1);
