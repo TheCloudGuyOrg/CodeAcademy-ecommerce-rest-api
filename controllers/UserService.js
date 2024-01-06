@@ -12,9 +12,7 @@ module.exports = class UserService {
             throw error;
         }
     }
-    
-    
-    
+     
     async get(data) {
         
         const { id } = data;

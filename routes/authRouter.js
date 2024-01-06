@@ -2,6 +2,10 @@ const express = require('express');
 const router = express.Router();
 const AuthService = require('../controllers/AuthService');
 const AuthServiceInstance = new AuthService();
+const CartService = require('../controllers/CartService');
+const CartServiceInstance = new AuthService();
+const UserService = require('../controllers/UserService');
+const UserServiceInstance = new AuthService();
 
 module.exports = (app, passport) => {
     app.use('/api/auth', router);
@@ -27,4 +31,22 @@ module.exports = (app, passport) => {
             next(error);
         }
     });
+
+    // Check Login Status
+    router.get('/logged_in', async (request, response, next) => {
+        try {
+            const { id } = request.user;
+            const cart = await CartServiceInstance.loadCart(id);
+            const user = await UserServiceInstance.get({ id });
+
+            response.status(200).send({
+                cart, 
+                loggedIn: true,
+                user
+            });
+        } catch(error) {
+            next(error);
+        }
+    });
 };
+
